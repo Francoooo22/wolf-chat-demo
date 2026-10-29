@@ -75,9 +75,9 @@ function semilla() {
       { id: uuid(), pregunta: '¿Qué incluye el viaje?', respuesta: 'Respuesta de ejemplo: cargá la real desde Administración → Preguntas frecuentes.', motivo: 'cotizacion', orden: 2, activo: true, vistas: 22, utiles: 12, no_utiles: 6 },
     ],
     catalogo: [
-      { nro_contrato: '2419', codigo: 'WT26CBU001', anio: 2026, destino: 'Camboriu', producto: 'Camboriu 14/9', colegio: 'MARTIN ZAPATA 3ro Tarde' },
-      { nro_contrato: '2437', codigo: 'WT26CBU002', anio: 2026, destino: 'Camboriu', producto: 'Camboriu 14/9', colegio: 'LAE - LICEO AGRICOLA Y ENOLOGICO DOMINGO F. SARMIENTO 3ro Mañana' },
-      { nro_contrato: '3499', codigo: 'WT26CBU008', anio: 2026, destino: 'Camboriu', producto: 'Camboriu 10/6', colegio: 'MARTIN ZAPATA 3ro Mañana' },
+      { nro_contrato: '1001', codigo: 'WT26BRC001', anio: 2026, destino: 'Bariloche', producto: 'Bariloche 12/9', colegio: 'Colegio San Martín 5to B' },
+      { nro_contrato: '1002', codigo: 'WT26BRC002', anio: 2026, destino: 'Bariloche', producto: 'Bariloche 12/9', colegio: 'Escuela Los Andes 5to A' },
+      { nro_contrato: '1003', codigo: 'WT26CBU001', anio: 2026, destino: 'Camboriú', producto: 'Camboriú 14/9', colegio: 'Instituto Cuyo 5to Mañana' },
     ],
     contratos: [
       { nro_contrato: 'W-2026-0412', dni_pasajero: '46210987', pasajero: 'Lucía Funes', colegio: 'Colegio Nacional Agustín Álvarez', curso: '5° A', viaje: 'Camboriú 2026', actualizado_at: haceDias(2) },
