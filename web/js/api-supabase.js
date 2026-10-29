@@ -5,9 +5,12 @@ import { normalizarContrato } from './util.js';
 
 const BUCKET = 'adjuntos';
 
-function nuevoCliente(storageKey) {
+// detectSessionInUrl solo lo necesita el panel (vuelta del ingreso con Google).
+// El chat del cliente no toma sesiones desde la URL: canjea el enlace de acceso
+// a mano con verifyOtp, así un enlace armado por un tercero no le cambia la sesión.
+function nuevoCliente(storageKey, { detectSessionInUrl = false } = {}) {
   return createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey },
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl, storageKey },
   });
 }
 
@@ -179,7 +182,7 @@ export function crearApiCliente() {
     },
 
     async mensajes(convId) {
-      return ok(await sb.from('mensajes').select('*').eq('conversacion_id', convId).order('created_at'));
+      return ok(await sb.from('mensajes').select('*').eq('conversacion_id', convId).eq('interno', false).order('created_at'));
     },
 
     async enviarTexto(convId, texto) {
@@ -202,7 +205,7 @@ export function crearApiCliente() {
       const canal = sb.channel(`cliente-${convId}`)
         .on('postgres_changes',
           { event: 'INSERT', schema: 'public', table: 'mensajes', filter: `conversacion_id=eq.${convId}` },
-          (p) => onMensaje?.(p.new))
+          (p) => { if (!p.new?.interno) onMensaje?.(p.new); })
         .on('postgres_changes',
           { event: 'UPDATE', schema: 'public', table: 'conversaciones', filter: `id=eq.${convId}` },
           (p) => onConversacion?.(p.new))
@@ -230,7 +233,7 @@ export function crearApiCliente() {
 // Panel de gestores
 // ---------------------------------------------------------------------
 export function crearApiPanel() {
-  const sb = nuevoCliente('wolf-chat-panel');
+  const sb = nuevoCliente('wolf-chat-panel', { detectSessionInUrl: true });
   const SELECT_LISTA = '*, cliente:clientes(id, nombre, tipo, colegio, curso, nro_contrato, etapa, contrato_verificado)';
 
   return {
