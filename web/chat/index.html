@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Atención Wolf Travel</title>
+  <meta name="description" content="Escribile a Wolf Travel: dejá tu consulta y te respondemos por acá.">
+  <meta name="theme-color" content="#0B34DC">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="cabecera">
+      <img class="logo" id="logo" alt="Wolf Travel" width="44" height="44">
+      <div class="cabecera-texto">
+        <h1>Atención Wolf</h1>
+        <p class="estado" id="estado"><span class="punto" aria-hidden="true"></span><span id="estado-texto">Conectando…</span></p>
+      </div>
+      <button class="cerrar" id="cerrar" type="button" aria-label="Cerrar el chat" hidden></button>
+    </header>
+
+    <p class="aviso-demo" id="aviso-demo" hidden>
+      Modo demostración: los datos quedan guardados solo en este navegador.
+    </p>
+
+    <main class="hilo" id="hilo" aria-live="polite" aria-label="Conversación"></main>
+
+    <div class="opciones" id="opciones" role="group" aria-label="Opciones de respuesta"></div>
+    <p class="ayuda" id="ayuda" role="alert"></p>
+
+    <form class="composer" id="composer" autocomplete="on">
+      <label class="adjuntar" id="adjuntar" title="Adjuntar foto o PDF" hidden>
+        <input type="file" id="archivo" accept="image/*,application/pdf">
+        <span class="sr">Adjuntar foto o PDF</span>
+      </label>
+      <textarea id="texto" rows="1" maxlength="4000" placeholder="Escribí tu mensaje" aria-label="Mensaje"></textarea>
+      <button class="enviar" id="enviar" type="submit" aria-label="Enviar"></button>
+    </form>
+  </div>
+
+  <script type="module" src="chat.js"></script>
+</body>
+</html>

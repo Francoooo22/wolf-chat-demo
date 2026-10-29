@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atención al cliente Wolf</title>
+  <meta name="description" content="Chat de atención al cliente de Wolf Travel: consultas sobre tu viaje, pagos y documentación.">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
+  <style>
+    :root { --azul: #0b34dc; --arena: #eae8e1; --tinta: #1e1d3e; --gris: #5d5c6e; --blanco: #fff; }
+    @media (prefers-color-scheme: dark) {
+      :root { --arena: #14132a; --tinta: #f1efe8; --gris: #b9b7c6; --blanco: #1f1e3a; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px;
+           background: var(--arena); color: var(--tinta); font-family: Satoshi, system-ui, sans-serif; line-height: 1.5; }
+    main { width: 100%; max-width: 560px; background: var(--blanco); border-radius: 20px; padding: 32px 24px;
+           box-shadow: 0 1px 0 rgba(30, 29, 62, 0.08); }
+    h1 { margin: 0 0 8px; font-size: 26px; font-weight: 900; }
+    p { margin: 0 0 14px; color: var(--gris); }
+    .botones { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 18px; }
+    a.boton { display: inline-block; padding: 12px 20px; border-radius: 999px; background: var(--azul); color: #fff;
+              font-weight: 700; text-decoration: none; }
+    footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 22px; font-size: 16px; }
+    footer a { color: var(--azul); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Atención al cliente Wolf</h1>
+    <p>Canal de atención de <b>Wolf Travel</b> para quienes viajan con nosotros: consultá por tu viaje contratado,
+      tus pagos y cuotas, la documentación o pedí una cotización. Te responde una persona del equipo.</p>
+    <p>Las consultas se atienden de lunes a viernes en el horario indicado en el chat. Fuera de ese horario podés dejar
+      tu mensaje y te respondemos el próximo día hábil.</p>
+    <div class="botones">
+      <a class="boton" href="chat/">Abrir el chat <span aria-hidden="true">→</span></a>
+    </div>
+    <footer>
+      <a href="privacidad/">Política de privacidad</a>
+      <a href="panel/">Ingreso del equipo de Wolf</a>
+    </footer>
+  </main>
+</body>
+</html>

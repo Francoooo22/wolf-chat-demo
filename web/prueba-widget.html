@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba del botón de chat</title>
+  <style>
+    body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #eae8e1; color: #1e1d3e; }
+    main { max-width: 720px; margin: 0 auto; padding: 64px 24px; }
+    h1 { font-size: 32px; margin: 0 0 12px; }
+    a.boton { display: inline-block; margin-top: 16px; padding: 12px 20px; border-radius: 999px;
+              background: #1e1d3e; color: #fff; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Página de prueba del botón de chat</h1>
+    <p>Así se ve el chat insertado en un sitio. El botón azul de abajo a la derecha abre la conversación,
+       y cualquier enlace a <code>#wolf-chat</code> también lo abre, como el de abajo.</p>
+    <a class="boton" href="#wolf-chat">Escribinos</a>
+  </main>
+
+  <!-- Esta es la única línea que hay que pegar en Framer (Custom Code → End of body). -->
+  <script src="widget/wolf-chat.js" defer></script>
+</body>
+</html>

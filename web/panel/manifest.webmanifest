@@ -1,0 +1,16 @@
+{
+  "name": "Atención Wolf — Panel",
+  "short_name": "Atención Wolf",
+  "description": "Panel de atención al cliente de Wolf Travel.",
+  "lang": "es-AR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1E1D3E",
+  "theme_color": "#1E1D3E",
+  "icons": [
+    { "src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

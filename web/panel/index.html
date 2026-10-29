@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel de atención — Wolf</title>
+  <meta name="theme-color" content="#1E1D3E">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="iconos/favicon-64.png">
+  <link rel="apple-touch-icon" href="iconos/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Atención Wolf">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+
+  <!-- Ingreso -->
+  <div class="ingreso" id="pantalla-ingreso" hidden>
+    <div class="ingreso-caja">
+      <img class="logo" alt="Wolf Travel">
+      <h1>Panel de atención</h1>
+      <p id="ingreso-texto">Ingresá con la cuenta de Google que te dio de alta el administrador.</p>
+      <button class="boton primario" id="btn-google" type="button">Ingresar con Google</button>
+      <div class="demo-usuarios" id="demo-usuarios" hidden></div>
+      <p class="error" id="ingreso-error" role="alert"></p>
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div id="panel" hidden>
+    <header class="barra">
+      <div class="barra-marca"><img class="logo" alt=""><span>Atención Wolf</span></div>
+      <nav aria-label="Secciones">
+        <button type="button" data-vista="bandeja" aria-current="page">Bandeja</button>
+        <button type="button" data-vista="leads" id="nav-leads" hidden>Leads</button>
+        <button type="button" data-vista="reportes" id="nav-reportes" hidden>Reportes</button>
+        <button type="button" data-vista="avisos" id="nav-avisos" hidden>Avisos</button>
+        <button type="button" data-vista="admin" id="nav-admin" hidden>Administración</button>
+      </nav>
+      <span class="demo" id="marca-demo" hidden>Demostración</span>
+      <span class="espacio"></span>
+      <button class="avisos" id="btn-avisos" type="button" hidden>Activar avisos</button>
+      <label class="disponible" title="Si estás ausente no te asignamos consultas nuevas">
+        <input type="checkbox" id="disponible"> <span id="disponible-texto">Disponible</span>
+      </label>
+      <span class="usuario" id="usuario"></span>
+      <button class="texto-boton" id="btn-salir" type="button">Salir</button>
+    </header>
+
+    <section class="bandeja" id="vista-bandeja" data-vista-contenedor="bandeja">
+      <aside class="lista" aria-label="Consultas">
+        <div class="pestanas" role="tablist" id="pestanas"></div>
+        <div class="filtros">
+          <input class="control" type="search" id="buscar" placeholder="Buscar nombre, colegio, contrato o N°" aria-label="Buscar">
+          <select class="control" id="filtro-motivo" aria-label="Filtrar por motivo"></select>
+        </div>
+        <ul class="items" id="lista"></ul>
+      </aside>
+
+      <main class="conversacion" id="conversacion">
+        <div class="vacio"><strong>Elegí una consulta</strong>Las consultas nuevas te llegan acá en tiempo real.</div>
+      </main>
+
+      <aside class="ficha" id="ficha" aria-label="Datos del cliente"></aside>
+    </section>
+
+    <section class="vista" id="vista-leads" data-vista-contenedor="leads" hidden></section>
+    <section class="vista" id="vista-reportes" data-vista-contenedor="reportes" hidden></section>
+    <section class="vista" id="vista-avisos" data-vista-contenedor="avisos" hidden></section>
+    <section class="admin" id="vista-admin" data-vista-contenedor="admin" hidden></section>
+  </div>
+
+  <!-- Transferir -->
+  <dialog id="dlg-transferir">
+    <form method="dialog" id="form-transferir">
+      <h2>Transferir consulta</h2>
+      <div class="opciones-radio">
+        <label><input type="radio" name="destino" value="gestor" checked> A una persona</label>
+        <label><input type="radio" name="destino" value="equipo"> A la fila de un equipo</label>
+      </div>
+      <label class="campo" id="campo-gestor"><span>Persona</span><select name="gestor"></select></label>
+      <label class="campo" id="campo-equipo" hidden><span>Equipo</span><select name="equipo"></select></label>
+      <label class="campo"><span>Nota para quien la recibe (opcional)</span><textarea name="nota" maxlength="500"></textarea></label>
+      <div class="pie">
+        <button class="boton" type="button" data-cancelar>Cancelar</button>
+        <button class="boton primario" value="ok">Transferir</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Editar cliente -->
+  <dialog id="dlg-cliente">
+    <form method="dialog" id="form-cliente">
+      <h2>Datos del cliente</h2>
+      <div class="form-grilla">
+        <label class="campo"><span>Nombre y apellido</span><input name="nombre" required maxlength="120"></label>
+        <label class="campo"><span>Relación con el viaje</span>
+          <select name="relacion">
+            <option value="">Sin dato</option>
+            <option value="alumno">Alumno/a</option>
+            <option value="familiar">Madre, padre o tutor</option>
+            <option value="docente">Docente o coordinador</option>
+            <option value="otro">Otro</option>
+          </select></label>
+        <label class="campo"><span>Colegio</span><input name="colegio" maxlength="160"></label>
+        <label class="campo"><span>Curso</span><input name="curso" maxlength="40"></label>
+        <label class="campo"><span>Celular</span><input name="celular" inputmode="tel"></label>
+        <label class="campo"><span>Correo</span><input name="email" type="email"></label>
+        <label class="campo"><span>N° de contrato</span><input name="nro_contrato" maxlength="40"></label>
+        <label class="campo"><span>DNI del pasajero</span><input name="dni_pasajero" inputmode="numeric"></label>
+        <label class="campo"><span>Sucursal</span><select name="sucursal_id"></select></label>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" name="tiene_contrato"> Tiene contrato firmado</label>
+        <label><input type="checkbox" name="acepta_avisos"> Acepta recibir avisos por correo</label>
+      </div>
+      <div class="pie">
+        <button class="boton" type="button" data-cancelar>Cancelar</button>
+        <button class="boton primario" value="ok">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Alta o edición de persona -->
+  <dialog id="dlg-gestor">
+    <form method="dialog" id="form-gestor">
+      <h2 id="dlg-gestor-titulo">Agregar persona</h2>
+      <label class="campo"><span>Nombre y apellido</span><input name="nombre" required minlength="2" maxlength="80"></label>
+      <label class="campo"><span>Cuenta de Google con la que va a ingresar</span><input name="email" type="email" required></label>
+      <p class="ayuda-campo" id="gestor-ayuda-email" hidden>Si cambiás la cuenta, la anterior pierde el acceso y la nueva queda habilitada en su primer ingreso.</p>
+      <label class="campo"><span>Rol</span>
+        <select name="rol">
+          <option value="gestor">Gestor: atiende las consultas de sus equipos</option>
+          <option value="supervisor">Supervisor: ve todas las consultas y puede reasignarlas</option>
+          <option value="admin">Administrador: además configura el sistema</option>
+        </select></label>
+      <fieldset class="campo" style="border:0;padding:0;margin:0">
+        <span>Equipos: recibe las consultas de estos equipos</span>
+        <div class="checks" id="gestor-equipos"></div>
+      </fieldset>
+      <div class="checks">
+        <label><input type="checkbox" name="disponible" checked> Disponible para recibir consultas nuevas</label>
+        <label><input type="checkbox" name="activo" checked> Puede ingresar al panel</label>
+      </div>
+      <p class="ayuda-campo">Si deja de poder ingresar, sus consultas abiertas se reparten solas entre su equipo.</p>
+      <button class="boton" type="button" id="gestor-repartir" hidden>Repartir sus consultas abiertas</button>
+      <div class="pie">
+        <button class="boton peligro izquierda" type="button" data-eliminar hidden>Eliminar</button>
+        <button class="boton" type="button" data-cancelar>Cancelar</button>
+        <button class="boton primario" value="ok">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Alta o edición de equipo -->
+  <dialog id="dlg-equipo">
+    <form method="dialog" id="form-equipo">
+      <h2 id="dlg-equipo-titulo">Nuevo equipo</h2>
+      <label class="campo"><span>Nombre del equipo</span><input name="nombre" required minlength="2" maxlength="60"></label>
+      <fieldset class="campo" style="border:0;padding:0;margin:0">
+        <span>Integrantes</span>
+        <div class="lista-checks" id="equipo-integrantes"></div>
+      </fieldset>
+      <p class="ayuda-campo">Las consultas del equipo se reparten por turno entre los integrantes disponibles.</p>
+      <div class="pie">
+        <button class="boton peligro izquierda" type="button" data-eliminar hidden>Eliminar</button>
+        <button class="boton" type="button" data-cancelar>Cancelar</button>
+        <button class="boton primario" value="ok">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Alta o edición de motivo -->
+  <dialog id="dlg-motivo">
+    <form method="dialog" id="form-motivo">
+      <h2 id="dlg-motivo-titulo">Nuevo motivo</h2>
+      <label class="campo"><span>Nombre que ve el cliente</span><input name="nombre" required minlength="2" maxlength="60"></label>
+      <label class="campo"><span>Equipo que lo recibe</span><select name="equipo_id" required></select></label>
+      <label class="campo"><span>Quién lo ve en el chat</span>
+        <select name="disponible_para">
+          <option value="todos">Todos</option>
+          <option value="cliente">Solo quien ya tiene contrato</option>
+          <option value="lead">Solo quien todavía no tiene contrato</option>
+        </select></label>
+      <fieldset class="campo" style="border:0;padding:0;margin:0">
+        <span>Color en el panel</span>
+        <div class="muestras" id="motivo-colores"></div>
+      </fieldset>
+      <div class="checks"><label><input type="checkbox" name="activo" checked> Visible en el chat</label></div>
+      <div class="pie">
+        <button class="boton peligro izquierda" type="button" data-eliminar hidden>Eliminar</button>
+        <button class="boton" type="button" data-cancelar>Cancelar</button>
+        <button class="boton primario" value="ok">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Diálogo armado desde el código (confirmaciones y formularios cortos) -->
+  <dialog id="dlg-generico"></dialog>
+
+  <script type="module" src="panel.js"></script>
+</body>
+</html>
